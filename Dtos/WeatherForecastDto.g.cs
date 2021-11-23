@@ -1,4 +1,5 @@
 using System;
+using MapsterCodeGenPOC.Dtos;
 
 namespace MapsterCodeGenPOC.Dtos
 {
@@ -8,5 +9,6 @@ namespace MapsterCodeGenPOC.Dtos
         public int Celcius { get; set; }
         public int Fahrenheit { get; set; }
         public string Summary { get; set; }
+        public StateDto State { get; set; }
     }
 }

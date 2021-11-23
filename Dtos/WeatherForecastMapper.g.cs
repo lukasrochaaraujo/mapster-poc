@@ -9,9 +9,8 @@ namespace MapsterCodeGenPOC.Dtos
             return p1 == null ? null : new WeatherForecastDto()
             {
                 Date = p1.Date,
-                Celcius = p1.TemperatureC,
-                Fahrenheit = p1.TemperatureF,
-                Summary = p1.Summary
+                Summary = p1.Summary,
+                State = p1.State == null ? null : new StateDto() {Name = p1.State.Name}
             };
         }
     }

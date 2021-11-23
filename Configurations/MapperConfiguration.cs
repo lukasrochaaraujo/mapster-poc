@@ -1,3 +1,4 @@
+using System.Reflection;
 using Mapster;
 using MapsterCodeGenPOC.Models;
 
@@ -8,6 +9,11 @@ namespace MapsterCodeGenPOC.Configurations
         public void Register(CodeGenerationConfig config)
         {
             config.AdaptTo("[name]Dto", MapType.Map)
+                .ApplyDefaultRules()
+                .ForType<State>();
+
+            config.AdaptTo("[name]Dto", MapType.Map)
+                .ApplyDefaultRules()
                 .ForType<WeatherForecast>(builder =>
                 {
                     builder.Map(poco => poco.TemperatureC, "Celcius");
@@ -15,7 +21,16 @@ namespace MapsterCodeGenPOC.Configurations
                 });
 
             config.GenerateMapper("[name]Mapper")
-                .ForType<WeatherForecast>();
+                .ForType<WeatherForecast>()                
+                .ForType<State>();
         }
+    }
+
+    public static class MapperConfigurationExtension
+    {
+        public static AdaptAttributeBuilder ApplyDefaultRules(this AdaptAttributeBuilder builder)
+        {
+            return builder.ForAllTypesInNamespace(Assembly.GetExecutingAssembly(), "MapsterCodeGenPOC.Models");
+        } 
     }
 }
